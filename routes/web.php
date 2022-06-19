@@ -10,7 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+// index: showの補助ページ
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'tasksController@index');
+
+Route::resource('task', 'tasksController');
