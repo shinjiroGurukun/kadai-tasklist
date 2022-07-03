@@ -14,6 +14,10 @@
             <ul class="navbar-nav">
                 {{-- メッセージ作成ページへのリンク --}}
                 <li class="nav-item">{!! link_to_route('task.create', '新規タスクの作成', [], ['class' => 'nav-link']) !!}</li>
+           {{-- ユーザ登録ページへのリンク --}}
+                    <li>{!! link_to_route('signup.get', 'Signup', [], ['class' => 'nav-link']) !!}</li>
+                    {{-- ログインページへのリンク --}}
+                    <li class="nav-item"><a href="#" class="nav-link">Login</a></li>
             </ul>
                 </div>
             </nav>

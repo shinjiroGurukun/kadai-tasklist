@@ -15,3 +15,7 @@
 Route::get('/', 'tasksController@index');
 
 Route::resource('task', 'tasksController');
+
+// ユーザー登録
+Route::get('signup','Auth\RegisterController@showRegister')->name('signup.get');
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
