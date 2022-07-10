@@ -16,10 +16,8 @@
                     @if (Auth::check())
                      {{-- ユーザ一覧ページへのリンク --}}
                     <li class="nav-item">{!! link_to_route('users.index', 'Users', [], ['class' => 'nav-link']) !!}</li>
-               {{-- メッセージ作成ページへのリンク --}}
-                <li class="nav-item">{!! link_to_route('task.create', '新規タスクの作成', [], ['class' => 'nav-link']) !!}</li>
-                    {{-- ユーザ一覧ページへのリンク --}}
-                    <li class="nav-item"><a href="#" class="nav-link">Users</a></li>
+                   {{-- メッセージ作成ページへのリンク --}}
+                    <li class="nav-item">{!! link_to_route('task.create', '新規タスクの作成', [], ['class' => 'nav-link']) !!}</li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}</a>
                         <ul class="dropdown-menu dropdown-menu-right">

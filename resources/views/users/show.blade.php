@@ -16,11 +16,7 @@
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
                 {{-- ユーザ詳細タブ --}}
-                <li class="nav-item"><a href="#" class="nav-link">TimeLine</a></li>
-                {{-- フォロー一覧タブ --}}
-                <li class="nav-item"><a href="#" class="nav-link">Followings</a></li>
-                {{-- フォロワー一覧タブ --}}
-                <li class="nav-item"><a href="#" class="nav-link">Followers</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">タスク一覧</a></li>
             </ul>
         </div>
     </div>

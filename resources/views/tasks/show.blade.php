@@ -20,7 +20,7 @@
     </table>
 
     {{-- メッセージ編集ページへのリンク --}}
-    {!! link_to_route('task.edit', 'このタスクを編集', ['task' => $task->id], ['class' => 'btn btn-light']) !!}
+    {!! link_to_route('tasks.edit', 'このタスクを編集', ['task' => $task->id], ['class' => 'btn btn-light']) !!}
 
     {{-- メッセージ削除フォーム --}}
     {!! Form::model($task, ['route' => ['task.destroy', $task->id], 'method' => 'delete']) !!}

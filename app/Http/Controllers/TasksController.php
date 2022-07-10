@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Task;
 
-class tasksController extends Controller
+class TasksController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,20 @@ class tasksController extends Controller
      */
     public function index()
     {
-        //
-        $tasks = Task::all();
-        return view('tasks.index',['tasks' => $tasks,]);
+        // 認証済みかチェック、falseでトップへ
+        if(!\Auth::check()){
+            return view('tasks.index');
+        }
+        $data = [];
+        // 認証済みユーザを取得
+        $user = \Auth::user();
+        // ユーザの投稿の一覧を作成日時の降順で取得
+        $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'tasks' => $tasks,
+        ];
+        return view('tasks.index',$data);
     }
 
     /**
@@ -26,6 +37,11 @@ class tasksController extends Controller
      */
     public function create()
     {
+        
+        // 認証済みかチェック、falseでトップへ
+        if(!\Auth::check()){
+            return redirect('/');
+        }
         //
         $task = new Task;
         
@@ -40,19 +56,27 @@ class tasksController extends Controller
      */
     public function store(Request $request)
     {
+        // 認証済みかチェック、falseでトップへ
+        if(!\Auth::check()){
+           return redirect('/');
+        }
         // バリデーション
         
         $request->validate([
             'content' => 'required|max:255',
             'status' => 'required|max:10',   // 追加
         ]);
-        $task = new Task;
-        $task->content = $request->content;
-        $task->status = $request->status;
-        $task->save();
         
+        // 認証済みユーザ（閲覧者）の投稿として作成（リクエストされた値をもとに作成）
+        $request->user()->tasks()->create([
+            'content' => $request->content,
+            'status' => $request->status, 
+        ]);
+        
+
         // トップページへリダイレクト
-        return redirect('/');
+        // return redirect('/');
+        return back();
         
     }
 
@@ -64,6 +88,10 @@ class tasksController extends Controller
      */
     public function show($id)
     {
+        // 認証済みかチェック、falseでトップへ
+        if(!\Auth::check()){
+            return redirect('/');
+        }
         //idの値でメッセージを検索して取得
         $task = Task::findOrFail($id);
         
@@ -97,17 +125,24 @@ class tasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        // 認証済みかチェック、falseでトップへ
+        if(!\Auth::check()){
+            return redirect('/');
+        }
         $request->validate([
             'content' => 'required|max:255',
             'status' => 'required|max:10',   // 追加
         ]);
         //idの値でメッセージを検索して取得
         $task = Task::findOrFail($id);
-        // メッセージを更新
+        // メッセージを削除
+        if(\Auth::id() === $task->user_id){
+         // メッセージを更新
         $task->content = $request->content;
         $task->status = $request->status;
         $task->save();
+        }
+        
         
         // トップページへリダイレクト
         return redirect('/');
@@ -121,10 +156,17 @@ class tasksController extends Controller
      */
     public function destroy($id)
     {
+        // 認証済みかチェック、falseでトップへ
+        if(!\Auth::check()){
+            return redirect('/');
+        }
         //idの値でメッセージを検索して取得
         $task = Task::findOrFail($id);
+        
         // メッセージを削除
-        $task->delete();
+        if(\Auth::id() === $task->user_id){
+            $task->delete();
+        }
         
         // トップページへリダイレクトさせる
         return redirect('/');

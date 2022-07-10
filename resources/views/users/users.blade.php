@@ -9,7 +9,7 @@
                         {{ $user->name }}
                     </div>
                     <div>
-                        {{-- ユーザ詳細ページへのリンク --}}
+                        {{-- タスクページへのリンク --}}
                         <p>{!! link_to_route('users.show', 'View profile', ['user' => $user->id]) !!}</p>
                     </div>
                 </div>
