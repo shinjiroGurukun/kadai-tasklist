@@ -19,11 +19,12 @@
         </tr>
     </table>
 
+    @if (Auth::id() == $task->user_id)
     {{-- メッセージ編集ページへのリンク --}}
-    {!! link_to_route('tasks.edit', 'このタスクを編集', ['task' => $task->id], ['class' => 'btn btn-light']) !!}
-
+    {!! link_to_route('task.edit', 'このタスクを編集', ['task' => $task->id], ['class' => 'btn btn-light']) !!}
     {{-- メッセージ削除フォーム --}}
     {!! Form::model($task, ['route' => ['task.destroy', $task->id], 'method' => 'delete']) !!}
         {!! Form::submit('削除', ['class' => 'btn btn-danger']) !!}
     {!! Form::close() !!}
+    @endif
 @endsection

@@ -15,12 +15,7 @@
                     <td>{{ $task->content }}</td>
                     <td>{{ $task->status }}</td>
                 </tr>
-                @if (Auth::id() == $task->user_id)
-                            {{-- 投稿削除ボタンのフォーム --}}
-                            {!! Form::open(['route' => ['task.destroy', $task->id], 'method' => 'delete']) !!}
-                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                            {!! Form::close() !!}
-                        @endif
+                
                 @endforeach
             </tbody>
         </table>

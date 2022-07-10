@@ -75,8 +75,8 @@ class TasksController extends Controller
         
 
         // トップページへリダイレクト
-        // return redirect('/');
-        return back();
+        return redirect('/');
+        // return back();
         
     }
 
@@ -107,6 +107,10 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
+        // 認証済みかチェック、falseでトップへ
+        if(!\Auth::check()){
+            return redirect('/');
+        }
         //idの値でメッセージを検索して取得
         $task = Task::findOrFail($id);
         
