@@ -139,7 +139,7 @@ class TasksController extends Controller
         if(!\Auth::check()){
             return redirect('/');
         }
-        //idの値でメッセージを検索して取得
+        //idの値でタスクを検索して取得
         $task = Task::findOrFail($id);
          //　認証ユーザとタスクのユーザが同じかチェック
         if(\Auth::id() !== $task->user_id){
@@ -149,7 +149,7 @@ class TasksController extends Controller
             'content' => 'required|max:255',
             'status' => 'required|max:10',   // 追加
         ]);
-         // メッセージを更新
+         // タスクを更新
         $task->content = $request->content;
         $task->status = $request->status;
         $task->save();
@@ -175,7 +175,7 @@ class TasksController extends Controller
         if(\Auth::id() !== $task->user_id){
         return redirect('/');
         }
-        // メッセージを削除
+        // タスクを削除
             $task->delete();
         
         // トップページへリダイレクトさせる
